@@ -1,4 +1,4 @@
-# parse-server-simple-mailgun-adapter
+# parse-server-mailgun-adapter-template
 Used to send Parse Server password reset and email verification emails though Mailgun
 
 
@@ -7,7 +7,7 @@ Used to send Parse Server password reset and email verification emails though Ma
 var server = ParseServer({
   ...
   emailAdapter: {
-    module: 'parse-server-simple-mailgun-adapter',
+    module: 'parse-server-mailgun-adapter-template',
     options: {
       // The address that your emails come from
       fromAddress: 'no-reply@yourdomain.com',

@@ -36,7 +36,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
   var sendVerificationEmail = options => {
     if(mailgunOptions.verificationBodyHTML){
       var mail = mailcomposer({
-        from: mailgunOptions.fromAddress,
+        from: {name: options.appName, address: mailgunOptions.fromAddress},
         to: options.user.get("email"),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
         text: fillVariables(mailgunOptions.verificationBody, options)
@@ -62,7 +62,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       });
     }else{
       var data = {
-        from: mailgunOptions.fromAddress,
+        from: {name: options.appName, address: mailgunOptions.fromAddress},
         to: options.user.get("email"),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
         text: fillVariables(mailgunOptions.verificationBody, options)
@@ -81,7 +81,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
   var sendPasswordResetEmail = options => {
     if(mailgunOptions.passwordResetBodyHTML){
       var mail = mailcomposer({
-        from: mailgunOptions.fromAddress,
+        from: {name: options.appName, address: mailgunOptions.fromAddress},
         to: options.user.get("email"),
         subject: fillVariables(mailgunOptions.passwordResetSubject, options),
         text: fillVariables(mailgunOptions.passwordResetBody, options)

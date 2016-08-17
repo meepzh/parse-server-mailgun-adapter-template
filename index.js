@@ -1,5 +1,6 @@
 
 var Mailgun = require('mailgun-js');
+var mailcomposer = require('mailcomposer');
 
 var SimpleMailgunAdapter = mailgunOptions => {
   if (!mailgunOptions || !mailgunOptions.apiKey || !mailgunOptions.domain || !mailgunOptions.fromAddress) {
@@ -33,54 +34,138 @@ var SimpleMailgunAdapter = mailgunOptions => {
   }
 
   var sendVerificationEmail = options => {
-    var data = {
-      from: mailgunOptions.fromAddress,
-      to: options.user.get("email"),
-      subject: fillVariables(mailgunOptions.verificationSubject, options),
-      text: fillVariables(mailgunOptions.verificationBody, options)
-    }
-    return new Promise((resolve, reject) => {
-      mailgun.messages().send(data, (err, body) => {
-        if (typeof err !== 'undefined') {
-          reject(err);
-        }
-        resolve(body);
+    if(mailgunOptions.verificationBodyHTML){
+      var mail = mailcomposer({
+        from: mailgunOptions.fromAddress,
+        to: options.user.get("email"),
+        subject: fillVariables(mailgunOptions.verificationSubject, options),
+        text: fillVariables(mailgunOptions.verificationBody, options)
+        html: fillVariables(mailgunOptions.verificationBodyHTML, options)
       });
-    });
+      mail.build(function(mailBuildError, message) {
+        if(typeof mailBuildError !== 'undefined'){
+          reject(mailBuildError);
+          return;
+        }
+        var dataToSend = {
+          to: options.user.get("email"),
+          message: message.toString('ascii')
+        };
+        return new Promise((resolve, reject) => {
+          mailgun.messages().sendMime(dataToSend, function (err, body) => {
+            if (typeof err !== 'undefined') {
+              reject(err);
+            }
+            resolve(body);
+          });
+        });
+      });
+    }else{
+      var data = {
+        from: mailgunOptions.fromAddress,
+        to: options.user.get("email"),
+        subject: fillVariables(mailgunOptions.verificationSubject, options),
+        text: fillVariables(mailgunOptions.verificationBody, options)
+      }
+      return new Promise((resolve, reject) => {
+        mailgun.messages().send(data, (err, body) => {
+          if (typeof err !== 'undefined') {
+            reject(err);
+          }
+          resolve(body);
+        });
+      });
+    }
   }
 
   var sendPasswordResetEmail = options => {
-    var data = {
-      from: mailgunOptions.fromAddress,
-      to: options.user.get("email"),
-      subject: fillVariables(mailgunOptions.passwordResetSubject, options),
-      text: fillVariables(mailgunOptions.passwordResetBody, options)
-    }
-    return new Promise((resolve, reject) => {
-      mailgun.messages().send(data, (err, body) => {
-        if (typeof err !== 'undefined') {
-          reject(err);
-        }
-        resolve(body);
+    if(mailgunOptions.passwordResetBodyHTML){
+      var mail = mailcomposer({
+        from: mailgunOptions.fromAddress,
+        to: options.user.get("email"),
+        subject: fillVariables(mailgunOptions.passwordResetSubject, options),
+        text: fillVariables(mailgunOptions.passwordResetBody, options)
+        html: fillVariables(mailgunOptions.passwordResetBodyHTML, options)
       });
-    });
+      mail.build(function(mailBuildError, message) {
+        if(typeof mailBuildError !== 'undefined'){
+          reject(mailBuildError);
+          return;
+        }
+        var dataToSend = {
+          to: options.user.get("email"),
+          message: message.toString('ascii')
+        };
+        return new Promise((resolve, reject) => {
+          mailgun.messages().sendMime(dataToSend, function (err, body) => {
+            if (typeof err !== 'undefined') {
+              reject(err);
+            }
+            resolve(body);
+          });
+        });
+      });
+    }else{
+      var data = {
+        from: mailgunOptions.fromAddress,
+        to: options.user.get("email"),
+        subject: fillVariables(mailgunOptions.passwordResetSubject, options),
+        text: fillVariables(mailgunOptions.passwordResetBody, options)
+      }
+      return new Promise((resolve, reject) => {
+        mailgun.messages().send(data, (err, body) => {
+          if (typeof err !== 'undefined') {
+            reject(err);
+          }
+          resolve(body);
+        });
+      });
+    }
   }
 
   var sendMail = mail => {
-    var data = {
-      from: mailgunOptions.fromAddress,
-      to: mail.to,
-      subject: mail.subject,
-      text: mail.text
-    }
-    return new Promise((resolve, reject) => {
-      mailgun.messages().send(data, (err, body) => {
-        if (typeof err !== 'undefined') {
-          reject(err);
-        }
-        resolve(body);
+    if(mail.html){
+      var mail = mailcomposer({
+        from: mailgunOptions.fromAddress,
+        to: mail.to,
+        subject: mail.subject,
+        text: mail.text
+        html: mail.html
       });
-    });
+      mail.build(function(mailBuildError, message) {
+        if(typeof mailBuildError !== 'undefined'){
+          reject(mailBuildError);
+          return;
+        }
+        var dataToSend = {
+          to: mail.to,
+          message: message.toString('ascii')
+        };
+        return new Promise((resolve, reject) => {
+          mailgun.messages().sendMime(dataToSend, function (err, body) => {
+            if (typeof err !== 'undefined') {
+              reject(err);
+            }
+            resolve(body);
+          });
+        });
+      });
+    }else{
+      var data = {
+        from: mailgunOptions.fromAddress,
+        to: mail.to,
+        subject: mail.subject,
+        text: mail.text
+      }
+      return new Promise((resolve, reject) => {
+        mailgun.messages().send(data, (err, body) => {
+          if (typeof err !== 'undefined') {
+            reject(err);
+          }
+          resolve(body);
+        });
+      });
+    }
   }
 
   return Object.freeze({

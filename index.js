@@ -52,7 +52,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           message: message.toString('ascii')
         };
         return new Promise((resolve, reject) => {
-          mailgun.messages().sendMime(dataToSend, function (err, body) => {
+          mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               reject(err);
             }
@@ -97,7 +97,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           message: message.toString('ascii')
         };
         return new Promise((resolve, reject) => {
-          mailgun.messages().sendMime(dataToSend, function (err, body) => {
+          mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               reject(err);
             }
@@ -142,7 +142,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           message: message.toString('ascii')
         };
         return new Promise((resolve, reject) => {
-          mailgun.messages().sendMime(dataToSend, function (err, body) => {
+          mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               reject(err);
             }

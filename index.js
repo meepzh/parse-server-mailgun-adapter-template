@@ -39,7 +39,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         from: {name: options.appName, address: mailgunOptions.fromAddress},
         to: options.user.get("email"),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
-        text: fillVariables(mailgunOptions.verificationBody, options)
+        text: fillVariables(mailgunOptions.verificationBody, options),
         html: fillVariables(mailgunOptions.verificationBodyHTML, options)
       });
       mail.build(function(mailBuildError, message) {
@@ -84,7 +84,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         from: {name: options.appName, address: mailgunOptions.fromAddress},
         to: options.user.get("email"),
         subject: fillVariables(mailgunOptions.passwordResetSubject, options),
-        text: fillVariables(mailgunOptions.passwordResetBody, options)
+        text: fillVariables(mailgunOptions.passwordResetBody, options),
         html: fillVariables(mailgunOptions.passwordResetBodyHTML, options)
       });
       mail.build(function(mailBuildError, message) {
@@ -129,7 +129,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         from: mailgunOptions.fromAddress,
         to: mail.to,
         subject: mail.subject,
-        text: mail.text
+        text: mail.text,
         html: mail.html
       });
       mail.build(function(mailBuildError, message) {

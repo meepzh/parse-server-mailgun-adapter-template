@@ -54,7 +54,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           };
           return dataToSend;
         }).then(dataToSend => {
-          return mailgun.messages().sendMime(dataToSend), (err, body) => {
+          return mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
               reject(err);
@@ -102,7 +102,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           };
           return dataToSend;
         }).then(dataToSend => {
-          return mailgun.messages().sendMime(dataToSend), (err, body) => {
+          return mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
               reject(err);
@@ -150,7 +150,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           };
           return dataToSend;
         }).then(dataToSend => {
-          return mailgun.messages().sendMime(dataToSend), (err, body) => {
+          return mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
               reject(err);

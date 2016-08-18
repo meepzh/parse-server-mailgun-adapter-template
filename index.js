@@ -43,7 +43,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         html: fillVariables(mailgunOptions.verificationBodyHTML, options)
       });
       return new Promise((resolve, reject) => {
-      	return mail.build(function(mailBuildError, message) {
+      	mail.build(function(mailBuildError, message) {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
             reject(mailBuildError);
@@ -54,11 +54,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
           };
           return dataToSend;
         }).then(dataToSend => {
-          return mailgun.messages().sendMime(dataToSend, (err, body) => {
+          mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
               reject(err);
             }
+            console.log(body);
             resolve(body);
           });
         });
@@ -91,7 +92,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         html: fillVariables(mailgunOptions.passwordResetBodyHTML, options)
       });
       return new Promise((resolve, reject) => {
-      	return mail.build(function(mailBuildError, message) {
+      	mail.build(function(mailBuildError, message) {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
             reject(mailBuildError);
@@ -102,11 +103,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
           };
           return dataToSend;
         }).then(dataToSend => {
-          return mailgun.messages().sendMime(dataToSend, (err, body) => {
+          mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
               reject(err);
             }
+            console.log(body);
             resolve(body);
           });
         });
@@ -139,7 +141,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         html: mail.html
       });
       return new Promise((resolve, reject) => {
-      	return mail.build(function(mailBuildError, message) {
+      	mail.build(function(mailBuildError, message) {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
             reject(mailBuildError);
@@ -150,11 +152,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
           };
           return dataToSend;
         }).then(dataToSend => {
-          return mailgun.messages().sendMime(dataToSend, (err, body) => {
+          mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
               reject(err);
             }
+            console.log(body);
             resolve(body);
           });
         });

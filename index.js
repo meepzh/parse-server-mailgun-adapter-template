@@ -46,7 +46,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
-            reject(mailBuildError);
+            reject(mailBuildError);return;
           }
           var dataToSend = {
             to: mail.to,
@@ -58,7 +58,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
-              reject(err);
+              reject(err);return;
             }
             console.log(body);
             resolve(body);
@@ -75,7 +75,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
         mailgun.messages().send(data, (err, body) => {
           if (typeof err !== 'undefined') {
-            reject(err);
+            reject(err);return;
           }
           resolve(body);
         });
@@ -96,7 +96,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
-            reject(mailBuildError);
+            reject(mailBuildError);return;
           }
           var dataToSend = {
             to: mail.to,
@@ -108,7 +108,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
-              reject(err);
+              reject(err);return;
             }
             console.log(body);
             resolve(body);
@@ -125,7 +125,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
         mailgun.messages().send(data, (err, body) => {
           if (typeof err !== 'undefined') {
-            reject(err);
+            reject(err);return;
           }
           resolve(body);
         });
@@ -146,7 +146,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
-            reject(mailBuildError);
+            reject(mailBuildError);return;
           }
           var dataToSend = {
             to: mail.to,
@@ -158,7 +158,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
               console.error(err);
-              reject(err);
+              reject(err);return;
             }
             console.log(body);
             resolve(body);
@@ -175,7 +175,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
         mailgun.messages().send(data, (err, body) => {
           if (typeof err !== 'undefined') {
-            reject(err);
+            reject(err);return;
           }
           resolve(body);
         });

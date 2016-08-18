@@ -42,22 +42,24 @@ var SimpleMailgunAdapter = mailgunOptions => {
         text: fillVariables(mailgunOptions.verificationBody, options),
         html: fillVariables(mailgunOptions.verificationBodyHTML, options)
       });
-      mail.build(function(mailBuildError, message) {
-        if(typeof mailBuildError !== 'undefined'){
-          reject(mailBuildError);
-          return;
-        }
-        var dataToSend = {
-          to: options.user.get("email"),
-          message: message.toString('ascii')
-        };
-        return new Promise((resolve, reject) => {
-          mailgun.messages().sendMime(dataToSend, (err, body) => {
+      return new Promise((resolve, reject) => {
+      	return mail.build(function(mailBuildError, message) {
+          if(typeof mailBuildError !== 'undefined'){
+            console.error(mailBuildError);
+            reject(mailBuildError);
+          }
+          var dataToSend = {
+            to: mail.to,
+            message: message.toString('ascii')
+          };
+          return dataToSend;
+        }).then(dataToSend => {
+          return mailgun.messages().sendMime(dataToSend), (err, body) => {
             if (typeof err !== 'undefined') {
+              console.error(err);
               reject(err);
             }
             resolve(body);
-          });
         });
       });
     }else{
@@ -87,22 +89,24 @@ var SimpleMailgunAdapter = mailgunOptions => {
         text: fillVariables(mailgunOptions.passwordResetBody, options),
         html: fillVariables(mailgunOptions.passwordResetBodyHTML, options)
       });
-      mail.build(function(mailBuildError, message) {
-        if(typeof mailBuildError !== 'undefined'){
-          reject(mailBuildError);
-          return;
-        }
-        var dataToSend = {
-          to: options.user.get("email"),
-          message: message.toString('ascii')
-        };
-        return new Promise((resolve, reject) => {
-          mailgun.messages().sendMime(dataToSend, (err, body) => {
+      return new Promise((resolve, reject) => {
+      	return mail.build(function(mailBuildError, message) {
+          if(typeof mailBuildError !== 'undefined'){
+            console.error(mailBuildError);
+            reject(mailBuildError);
+          }
+          var dataToSend = {
+            to: mail.to,
+            message: message.toString('ascii')
+          };
+          return dataToSend;
+        }).then(dataToSend => {
+          return mailgun.messages().sendMime(dataToSend), (err, body) => {
             if (typeof err !== 'undefined') {
+              console.error(err);
               reject(err);
             }
             resolve(body);
-          });
         });
       });
     }else{
@@ -132,22 +136,24 @@ var SimpleMailgunAdapter = mailgunOptions => {
         text: mail.text,
         html: mail.html
       });
-      mail.build(function(mailBuildError, message) {
-        if(typeof mailBuildError !== 'undefined'){
-          reject(mailBuildError);
-          return;
-        }
-        var dataToSend = {
-          to: mail.to,
-          message: message.toString('ascii')
-        };
-        return new Promise((resolve, reject) => {
-          mailgun.messages().sendMime(dataToSend, (err, body) => {
+      return new Promise((resolve, reject) => {
+      	return mail.build(function(mailBuildError, message) {
+          if(typeof mailBuildError !== 'undefined'){
+            console.error(mailBuildError);
+            reject(mailBuildError);
+          }
+          var dataToSend = {
+            to: mail.to,
+            message: message.toString('ascii')
+          };
+          return dataToSend;
+        }).then(dataToSend => {
+          return mailgun.messages().sendMime(dataToSend), (err, body) => {
             if (typeof err !== 'undefined') {
+              console.error(err);
               reject(err);
             }
             resolve(body);
-          });
         });
       });
     }else{

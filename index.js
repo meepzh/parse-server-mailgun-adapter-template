@@ -60,6 +60,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
               reject(err);
             }
             resolve(body);
+          });
         });
       });
     }else{
@@ -107,6 +108,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
               reject(err);
             }
             resolve(body);
+          });
         });
       });
     }else{
@@ -154,6 +156,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
               reject(err);
             }
             resolve(body);
+          });
         });
       });
     }else{

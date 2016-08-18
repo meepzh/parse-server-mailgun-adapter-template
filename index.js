@@ -45,7 +45,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
       	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
-            console.error(mailBuildError);
+            console.log("MAILGUN ERROR: ", mailBuildError);
             reject(mailBuildError);return;
           }
           var dataToSend = {
@@ -57,10 +57,10 @@ var SimpleMailgunAdapter = mailgunOptions => {
         }).then(dataToSend => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
-              console.error(err);
+              console.log("MAILGUN ERROR: ", err);
               reject(err);return;
             }
-            console.log(body);
+            console.log("MAILGUN RESPONSE: ", body);
             resolve(body);
           });
         });
@@ -95,7 +95,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
       	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
-            console.error(mailBuildError);
+            console.log("MAILGUN ERROR: ", mailBuildError);
             reject(mailBuildError);return;
           }
           var dataToSend = {
@@ -107,10 +107,10 @@ var SimpleMailgunAdapter = mailgunOptions => {
         }).then(dataToSend => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
-              console.error(err);
+              console.log("MAILGUN ERRROR: ", err);
               reject(err);return;
             }
-            console.log(body);
+            console.log("MAILGUN RESPONSE: ", body);
             resolve(body);
           });
         });
@@ -145,7 +145,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
       	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
-            console.error(mailBuildError);
+            console.log("MAILGUN ERROR: ", mailBuildError);
             reject(mailBuildError);return;
           }
           var dataToSend = {
@@ -157,10 +157,10 @@ var SimpleMailgunAdapter = mailgunOptions => {
         }).then(dataToSend => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (typeof err !== 'undefined') {
-              console.error(err);
+              console.log("MAILGUN ERROR: ", err);
               reject(err);return;
             }
-            console.log(body);
+            console.log("MAILGUN RESPONSE: ", body);
             resolve(body);
           });
         });

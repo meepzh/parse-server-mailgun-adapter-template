@@ -43,7 +43,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         html: fillVariables(mailgunOptions.verificationBodyHTML, options)
       });
       return new Promise((resolve, reject) => {
-      	mail.build(function(mailBuildError, message) {
+      	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
             reject(mailBuildError);
@@ -52,6 +52,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
             to: mail.to,
             message: message.toString('ascii')
           };
+          console.log("BUILD MAIL: " + JSON.stringify(dataToSend));
           return dataToSend;
         }).then(dataToSend => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {
@@ -92,7 +93,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         html: fillVariables(mailgunOptions.passwordResetBodyHTML, options)
       });
       return new Promise((resolve, reject) => {
-      	mail.build(function(mailBuildError, message) {
+      	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
             reject(mailBuildError);
@@ -101,6 +102,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
             to: mail.to,
             message: message.toString('ascii')
           };
+          console.log("BUILD MAIL: " + JSON.stringify(dataToSend));
           return dataToSend;
         }).then(dataToSend => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {
@@ -141,7 +143,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         html: mail.html
       });
       return new Promise((resolve, reject) => {
-      	mail.build(function(mailBuildError, message) {
+      	mail.build((mailBuildError, message) => {
           if(typeof mailBuildError !== 'undefined'){
             console.error(mailBuildError);
             reject(mailBuildError);
@@ -150,6 +152,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
             to: mail.to,
             message: message.toString('ascii')
           };
+          console.log("BUILD MAIL: " + JSON.stringify(dataToSend));
           return dataToSend;
         }).then(dataToSend => {
           mailgun.messages().sendMime(dataToSend, (err, body) => {

@@ -4,6 +4,8 @@ Used to send Parse Server password reset and email verification emails though Ma
 
 ## How to use
 ```
+var fs = require('fs'); //required if loading html from file!
+
 var server = ParseServer({
   ...
   emailAdapter: {
@@ -20,7 +22,7 @@ var server = ParseServer({
       // Verification email body
       verificationBody: 'Hi,\n\nYou are being asked to confirm the e-mail address %email% with %appname%\n\nClick here to confirm it:\n%link%',
       //OPTIONAL (will send HTML version of email):
-      verificationBodyHTML: "<!DOCTYPE html><html xmlns=http://www.w3.org/1999/xhtml>........",
+      verificationBodyHTML: fs.readFileSync("./verificationBody.html", "utf8") ||  null,
       // Password reset email subject
       passwordResetSubject: 'Password Reset Request for %appname%',
       // Password reset email body
@@ -35,7 +37,7 @@ var server = ParseServer({
 
 ## HTML Emails
 
-If you provide `verificationBodyHTML` or `passwordResetBodyHTML` the email will be sent out as HTML. You still need to include the default text as a fallback.
+Require `fs` and provide `verificationBodyHTML` or `passwordResetBodyHTML` as a `string` of `fs` object. The email will be sent out as HTML. You still need to include the default text as a fallback.
 
 ## Variables 
 

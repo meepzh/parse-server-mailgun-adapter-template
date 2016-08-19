@@ -49,7 +49,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
             return reject(mailBuildError);
           }
           var dataToSend = {
-            to: mail.to,
+            to: options.user.get("email"),
             message: message.toString('ascii')
           };
           console.log("MAILGUN dataToSend built.");
@@ -101,7 +101,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
             return reject(mailBuildError);
           }
           var dataToSend = {
-            to: mail.to,
+            to: options.user.get("email"),
             message: message.toString('ascii')
           };
           console.log("MAILGUN dataToSend built.");
@@ -139,7 +139,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
 
   var sendMail = mail => {
     if(mail.html){
-      var mail = mailcomposer({
+      var mailC = mailcomposer({
         from: mailgunOptions.fromAddress,
         to: mail.to,
         subject: mail.subject,
@@ -147,7 +147,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         html: mail.html
       });
       return new Promise((resolve, reject) => {
-      	mail.build((mailBuildError, message) => {
+      	mailC.build((mailBuildError, message) => {
           if(mailBuildError){
             console.error("MAILGUN ERROR: ", mailBuildError);
             return reject(mailBuildError);

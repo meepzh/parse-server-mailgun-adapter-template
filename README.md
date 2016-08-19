@@ -17,12 +17,14 @@ var server = ParseServer({
       domain: 'mg.yourdomain.com',
       // Your API key from mailgun.com
       apiKey: 'key-0123456789abcdefghijklmnopqrstuv',
+
       // Verification email subject
       verificationSubject: 'Please verify your e-mail for %appname%',
       // Verification email body
       verificationBody: 'Hi,\n\nYou are being asked to confirm the e-mail address %email% with %appname%\n\nClick here to confirm it:\n%link%',
       //OPTIONAL (will send HTML version of email):
       verificationBodyHTML: fs.readFileSync("./verificationBody.html", "utf8") ||  null,
+
       // Password reset email subject
       passwordResetSubject: 'Password Reset Request for %appname%',
       // Password reset email body

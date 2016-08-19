@@ -45,25 +45,19 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
       	mail.build((mailBuildError, message) => {
           if(mailBuildError){
-            console.error("MAILGUN ERROR: ", mailBuildError);
             return reject(mailBuildError);
           }
           var dataToSend = {
             to: options.user.get("email"),
             message: message.toString('ascii')
           };
-          console.log("MAILGUN dataToSend built.");
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (err) {
-              console.error("MAILGUN ERROR: ", err);
               return reject(err);
             }
-            console.log("MAILGUN RESPONSE: ", body);
             resolve(body);
           });
-          console.log("MAILGUN Queud...");
         }).catch(err => {
-          console.error(err);
           reject(err);
         });
       });
@@ -97,25 +91,19 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
       	mail.build((mailBuildError, message) => {
           if(mailBuildError){
-            console.error("MAILGUN ERROR: ", mailBuildError);
             return reject(mailBuildError);
           }
           var dataToSend = {
             to: options.user.get("email"),
             message: message.toString('ascii')
           };
-          console.log("MAILGUN dataToSend built.");
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (err) {
-              console.error("MAILGUN ERROR: ", err);
               return reject(err);
             }
-            console.log("MAILGUN RESPONSE: ", body);
             resolve(body);
           });
-          console.log("MAILGUN Queud...");
         }).catch(err => {
-          console.error(err);
           reject(err);
         });
       });
@@ -149,25 +137,19 @@ var SimpleMailgunAdapter = mailgunOptions => {
       return new Promise((resolve, reject) => {
       	mailC.build((mailBuildError, message) => {
           if(mailBuildError){
-            console.error("MAILGUN ERROR: ", mailBuildError);
             return reject(mailBuildError);
           }
           var dataToSend = {
             to: mail.to,
             message: message.toString('ascii')
           };
-          console.log("MAILGUN dataToSend built.");
           mailgun.messages().sendMime(dataToSend, (err, body) => {
             if (err) {
-              console.error("MAILGUN ERROR: ", err);
               return reject(err);
             }
-            console.log("MAILGUN RESPONSE: ", body);
             resolve(body);
           });
-          console.log("MAILGUN Queud...");
         }).catch(err => {
-          console.error(err);
           reject(err);
         });
       });

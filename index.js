@@ -63,7 +63,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       });
     }else{
       var data = {
-        from: {name: options.appName, address: mailgunOptions.fromAddress},
+        from: mailgunOptions.fromAddress,
         to: options.user.get("email"),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
         text: fillVariables(mailgunOptions.verificationBody, options)

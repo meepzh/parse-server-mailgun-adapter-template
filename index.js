@@ -33,11 +33,15 @@ var SimpleMailgunAdapter = mailgunOptions => {
     return text;
   }
 
+  function getRecipient(user) {
+      return user.get("email") || user.get('username')
+  }
+
   var sendVerificationEmail = options => {
     if(mailgunOptions.verificationBodyHTML){
       var mail = mailcomposer({
         from: {name: options.appName, address: mailgunOptions.fromAddress},
-        to: options.user.get("email"),
+        to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
         text: fillVariables(mailgunOptions.verificationBody, options),
         html: fillVariables(mailgunOptions.verificationBodyHTML, options)
@@ -48,7 +52,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
             return reject(mailBuildError);
           }
           var dataToSend = {
-            to: options.user.get("email"),
+            to: getRecipient(options.user),
             message: message.toString('ascii')
           };
           mailgun.messages().sendMime(dataToSend, (err, body) => {
@@ -64,7 +68,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
     }else{
       var data = {
         from: mailgunOptions.fromAddress,
-        to: options.user.get("email"),
+        to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
         text: fillVariables(mailgunOptions.verificationBody, options)
       }
@@ -83,7 +87,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
     if(mailgunOptions.passwordResetBodyHTML){
       var mail = mailcomposer({
         from: {name: options.appName, address: mailgunOptions.fromAddress},
-        to: options.user.get("email"),
+        to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.passwordResetSubject, options),
         text: fillVariables(mailgunOptions.passwordResetBody, options),
         html: fillVariables(mailgunOptions.passwordResetBodyHTML, options)
@@ -94,7 +98,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
             return reject(mailBuildError);
           }
           var dataToSend = {
-            to: options.user.get("email"),
+            to: getRecipient(options.user),
             message: message.toString('ascii')
           };
           mailgun.messages().sendMime(dataToSend, (err, body) => {
@@ -110,7 +114,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
     }else{
       var data = {
         from: mailgunOptions.fromAddress,
-        to: options.user.get("email"),
+        to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.passwordResetSubject, options),
         text: fillVariables(mailgunOptions.passwordResetBody, options)
       }

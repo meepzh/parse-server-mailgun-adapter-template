@@ -25,11 +25,19 @@ var SimpleMailgunAdapter = mailgunOptions => {
 
   var mailgun = Mailgun(mailgunOptions);
 
+  function escapeRegExp(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  }
+  
+  function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+  }
+  
   function fillVariables(text, options) {
-    text = text.replace("%username%", options.user.get("username"));
-    text = text.replace("%email%", options.user.get("email"));
-    text = text.replace("%appname%", options.appName);
-    text = text.replace("%link%", options.link);
+    text = replaceAll(text, "%username%", options.user.get("username"));
+    text = replaceAll(text, "%email%", options.user.get("email"));
+    text = replaceAll(text, "%appname%", options.appName);
+    text = replaceAll(text, "%link%", options.link);
     return text;
   }
 

@@ -48,7 +48,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
   var sendVerificationEmail = options => {
     if(mailgunOptions.verificationBodyHTML){
       var mail = mailcomposer({
-        from: {name: options.appName, address: mailgunOptions.fromAddress},
+        from: {
+          name: mailgunOptions.displayName ?
+            mailgunOptions.displayName :
+            options.appName,
+          address: mailgunOptions.fromAddress
+        },
         to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
         text: fillVariables(mailgunOptions.verificationBody, options),
@@ -75,7 +80,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
       });
     }else{
       var data = {
-        from: mailgunOptions.fromAddress,
+        from: {
+          name: mailgunOptions.displayName ?
+            mailgunOptions.displayName :
+            options.appName,
+          address: mailgunOptions.fromAddress
+        },
         to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
         text: fillVariables(mailgunOptions.verificationBody, options)
@@ -94,7 +104,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
   var sendPasswordResetEmail = options => {
     if(mailgunOptions.passwordResetBodyHTML){
       var mail = mailcomposer({
-        from: {name: options.appName, address: mailgunOptions.fromAddress},
+        from: {
+          name: mailgunOptions.displayName ?
+            mailgunOptions.displayName :
+            options.appName,
+          address: mailgunOptions.fromAddress
+        },
         to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.passwordResetSubject, options),
         text: fillVariables(mailgunOptions.passwordResetBody, options),
@@ -121,7 +136,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
       });
     }else{
       var data = {
-        from: mailgunOptions.fromAddress,
+        from: {
+          name: mailgunOptions.displayName ?
+            mailgunOptions.displayName :
+            options.appName,
+          address: mailgunOptions.fromAddress
+        },
         to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.passwordResetSubject, options),
         text: fillVariables(mailgunOptions.passwordResetBody, options)
@@ -140,7 +160,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
   var sendMail = mail => {
     if(mail.html){
       var mailC = mailcomposer({
-        from: mailgunOptions.fromAddress,
+        from: {
+          name: mailgunOptions.displayName ?
+            mailgunOptions.displayName :
+            options.appName,
+          address: mailgunOptions.fromAddress
+        },
         to: mail.to,
         subject: mail.subject,
         text: mail.text,
@@ -167,7 +192,12 @@ var SimpleMailgunAdapter = mailgunOptions => {
       });
     }else{
       var data = {
-        from: mailgunOptions.fromAddress,
+        from: {
+          name: mailgunOptions.displayName ?
+            mailgunOptions.displayName :
+            options.appName,
+          address: mailgunOptions.fromAddress
+        },
         to: mail.to,
         subject: mail.subject,
         text: mail.text

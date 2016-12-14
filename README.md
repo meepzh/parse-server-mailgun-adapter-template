@@ -11,6 +11,8 @@ var server = ParseServer({
   emailAdapter: {
     module: 'parse-server-mailgun-adapter-template',
     options: {
+      // Display name
+      displayName: 'My App',
       // The address that your emails come from
       fromAddress: 'no-reply@yourdomain.com',
       // Your domain from mailgun.com

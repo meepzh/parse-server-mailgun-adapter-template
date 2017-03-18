@@ -1,4 +1,3 @@
-
 var Mailgun = require('mailgun-js');
 var mailcomposer = require('mailcomposer');
 
@@ -26,27 +25,27 @@ var SimpleMailgunAdapter = mailgunOptions => {
   var mailgun = Mailgun(mailgunOptions);
 
   function escapeRegExp(str) {
-    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
   }
-  
+
   function replaceAll(str, find, replace) {
     return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
   }
-  
+
   function fillVariables(text, options) {
-    text = replaceAll(text, "%username%", options.user.get("username"));
-    text = replaceAll(text, "%email%", options.user.get("email"));
-    text = replaceAll(text, "%appname%", options.appName);
-    text = replaceAll(text, "%link%", options.link);
+    text = replaceAll(text, '%username%', options.user.get('username'));
+    text = replaceAll(text, '%email%', options.user.get('email'));
+    text = replaceAll(text, '%appname%', options.appName);
+    text = replaceAll(text, '%link%', options.link);
     return text;
   }
 
   function getRecipient(user) {
-      return user.get("email") || user.get('username')
+      return user.get('email') || user.get('username');
   }
 
   var sendVerificationEmail = options => {
-    if(mailgunOptions.verificationBodyHTML){
+    if (mailgunOptions.verificationBodyHTML) {
       var mail = mailcomposer({
         from: {
           name: mailgunOptions.displayName ?
@@ -61,7 +60,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       });
       return new Promise((resolve, reject) => {
       	mail.build((mailBuildError, message) => {
-          if(mailBuildError){
+          if (mailBuildError) {
             return reject(mailBuildError);
           }
           var dataToSend = {
@@ -78,7 +77,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           reject(err);
         });
       });
-    }else{
+    } else {
       var data = {
         from: {
           name: mailgunOptions.displayName ?
@@ -89,7 +88,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.verificationSubject, options),
         text: fillVariables(mailgunOptions.verificationBody, options)
-      }
+      };
       return new Promise((resolve, reject) => {
         mailgun.messages().send(data, (err, body) => {
           if (err) {
@@ -99,10 +98,10 @@ var SimpleMailgunAdapter = mailgunOptions => {
         });
       });
     }
-  }
+  };
 
   var sendPasswordResetEmail = options => {
-    if(mailgunOptions.passwordResetBodyHTML){
+    if (mailgunOptions.passwordResetBodyHTML) {
       var mail = mailcomposer({
         from: {
           name: mailgunOptions.displayName ?
@@ -117,7 +116,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       });
       return new Promise((resolve, reject) => {
       	mail.build((mailBuildError, message) => {
-          if(mailBuildError){
+          if (mailBuildError) {
             return reject(mailBuildError);
           }
           var dataToSend = {
@@ -134,7 +133,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           reject(err);
         });
       });
-    }else{
+    } else {
       var data = {
         from: {
           name: mailgunOptions.displayName ?
@@ -145,7 +144,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         to: getRecipient(options.user),
         subject: fillVariables(mailgunOptions.passwordResetSubject, options),
         text: fillVariables(mailgunOptions.passwordResetBody, options)
-      }
+      };
       return new Promise((resolve, reject) => {
         mailgun.messages().send(data, (err, body) => {
           if (err) {
@@ -155,10 +154,10 @@ var SimpleMailgunAdapter = mailgunOptions => {
         });
       });
     }
-  }
+  };
 
   var sendMail = mail => {
-    if(mail.html){
+    if (mail.html) {
       var mailC = mailcomposer({
         from: {
           name: mailgunOptions.displayName ?
@@ -173,7 +172,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
       });
       return new Promise((resolve, reject) => {
       	mailC.build((mailBuildError, message) => {
-          if(mailBuildError){
+          if (mailBuildError) {
             return reject(mailBuildError);
           }
           var dataToSend = {
@@ -190,7 +189,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
           reject(err);
         });
       });
-    }else{
+    } else {
       var data = {
         from: {
           name: mailgunOptions.displayName ?
@@ -201,7 +200,7 @@ var SimpleMailgunAdapter = mailgunOptions => {
         to: mail.to,
         subject: mail.subject,
         text: mail.text
-      }
+      };
       return new Promise((resolve, reject) => {
         mailgun.messages().send(data, (err, body) => {
           if (err) {
@@ -211,13 +210,13 @@ var SimpleMailgunAdapter = mailgunOptions => {
         });
       });
     }
-  }
+  };
 
   return Object.freeze({
     sendVerificationEmail: sendVerificationEmail,
     sendPasswordResetEmail: sendPasswordResetEmail,
     sendMail: sendMail
   });
-}
+};
 
-module.exports = SimpleMailgunAdapter
+module.exports = SimpleMailgunAdapter;

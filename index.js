@@ -1,7 +1,8 @@
 const Mailgun = require('mailgun-es6');
 
 const SimpleMailgunAdapter = mailgunOptions => {
-  if (!mailgunOptions || !mailgunOptions.apiKey || !mailgunOptions.domain || !mailgunOptions.fromAddress) {
+  if (!mailgunOptions || !(mailgunOptions.publicApi || mailgunOptions.privateApi) ||
+      !mailgunOptions.domainName || !mailgunOptions.fromAddress) {
     throw 'SimpleMailgunAdapter requires an API Key, domain, and fromAddress.';
   }
 
@@ -19,9 +20,6 @@ const SimpleMailgunAdapter = mailgunOptions => {
     mailgunOptions.passwordResetBody ||
     'Hi,\n\nYou requested a password reset for %appname%.\n\nClick here ' +
     'to reset it:\n%link%';
-
-  mailgunOptions.privateApi = mailgunOptions.privateApi || mailgunOptions.apiKey;
-  mailgunOptions.domainName = mailgunOptions.domainName || mailgunOptions.domain;
 
   const mailgun = new Mailgun(mailgunOptions);
 

@@ -16,9 +16,10 @@ var server = ParseServer({
       // The address that your emails come from
       fromAddress: 'no-reply@yourdomain.com',
       // Your domain from mailgun.com
-      domain: 'mg.yourdomain.com',
-      // Your API key from mailgun.com
-      apiKey: 'key-0123456789abcdefghijklmnopqrstuv',
+      domainName: 'mg.yourdomain.com',
+      // One of your API keys from mailgun.com
+      privateApi: 'key-0123456789abcdefghijklmnopqrstuv',
+      publicApi: 'key-0123456789abcdefghijklmnopqrstuv',
 
       // Verification email subject
       verificationSubject: 'Please verify your e-mail for %appname%',

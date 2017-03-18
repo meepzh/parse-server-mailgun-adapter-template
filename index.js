@@ -47,7 +47,7 @@ const SimpleMailgunAdapter = mailgunOptions => {
 
   function combineNameEmail(name, email) {
     if (!name) return email;
-    return `${name} <${email}>`;
+    return `"${name}" <${email}>`;
   }
 
   const sendVerificationEmail = options => {
